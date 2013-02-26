@@ -36,6 +36,8 @@
 		6341888516DBEDC4001F7FAA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		6341888716DBEDC4001F7FAA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6341889D16DBF47E001F7FAA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6341889F16DC031D001F7FAA /* ColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPalette.h; sourceTree = "<group>"; };
+		634188A016DC031D001F7FAA /* ColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPalette.m; sourceTree = "<group>"; };
 		63C1556516DD4EA700CDAA5A /* slideInButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slideInButton@2x.png"; sourceTree = "<group>"; };
 		63C1556616DD4EA700CDAA5A /* slideInButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slideInButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,6 +91,8 @@
 			children = (
 				6341888016DBEDC4001F7FAA /* AppDelegate.h */,
 				6341888116DBEDC4001F7FAA /* AppDelegate.m */,
+				6341889F16DC031D001F7FAA /* ColorPalette.h */,
+				634188A016DC031D001F7FAA /* ColorPalette.m */,
 				6341887816DBEDC4001F7FAA /* Supporting Files */,
 			);
 			path = AccessiblityDemo;
@@ -186,6 +190,7 @@
 			files = (
 				6341887E16DBEDC4001F7FAA /* main.m in Sources */,
 				6341888216DBEDC4001F7FAA /* AppDelegate.m in Sources */,
+				634188A116DC031D001F7FAA /* ColorPalette.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
