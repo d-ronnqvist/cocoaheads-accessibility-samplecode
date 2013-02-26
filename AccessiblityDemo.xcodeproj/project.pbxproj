@@ -16,8 +16,6 @@
 		6341888416DBEDC4001F7FAA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6341888316DBEDC4001F7FAA /* Default.png */; };
 		6341888616DBEDC4001F7FAA /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6341888516DBEDC4001F7FAA /* Default@2x.png */; };
 		6341888816DBEDC4001F7FAA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6341888716DBEDC4001F7FAA /* Default-568h@2x.png */; };
-		6341888B16DBEDC4001F7FAA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6341888A16DBEDC4001F7FAA /* ViewController.m */; };
-		6341888E16DBEDC4001F7FAA /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6341888C16DBEDC4001F7FAA /* ViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,9 +32,6 @@
 		6341888316DBEDC4001F7FAA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		6341888516DBEDC4001F7FAA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		6341888716DBEDC4001F7FAA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		6341888916DBEDC4001F7FAA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6341888A16DBEDC4001F7FAA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		6341888D16DBEDC4001F7FAA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,9 +80,6 @@
 			children = (
 				6341888016DBEDC4001F7FAA /* AppDelegate.h */,
 				6341888116DBEDC4001F7FAA /* AppDelegate.m */,
-				6341888916DBEDC4001F7FAA /* ViewController.h */,
-				6341888A16DBEDC4001F7FAA /* ViewController.m */,
-				6341888C16DBEDC4001F7FAA /* ViewController.xib */,
 				6341887816DBEDC4001F7FAA /* Supporting Files */,
 			);
 			path = AccessiblityDemo;
@@ -162,7 +154,6 @@
 				6341888416DBEDC4001F7FAA /* Default.png in Resources */,
 				6341888616DBEDC4001F7FAA /* Default@2x.png in Resources */,
 				6341888816DBEDC4001F7FAA /* Default-568h@2x.png in Resources */,
-				6341888E16DBEDC4001F7FAA /* ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +166,6 @@
 			files = (
 				6341887E16DBEDC4001F7FAA /* main.m in Sources */,
 				6341888216DBEDC4001F7FAA /* AppDelegate.m in Sources */,
-				6341888B16DBEDC4001F7FAA /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,14 +178,6 @@
 				6341887B16DBEDC4001F7FAA /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		6341888C16DBEDC4001F7FAA /* ViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6341888D16DBEDC4001F7FAA /* en */,
-			);
-			name = ViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
