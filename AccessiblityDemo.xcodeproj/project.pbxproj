@@ -17,6 +17,8 @@
 		6341888616DBEDC4001F7FAA /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6341888516DBEDC4001F7FAA /* Default@2x.png */; };
 		6341888816DBEDC4001F7FAA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6341888716DBEDC4001F7FAA /* Default-568h@2x.png */; };
 		6341889E16DBF47E001F7FAA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6341889D16DBF47E001F7FAA /* QuartzCore.framework */; };
+		63C1556716DD4EA700CDAA5A /* slideInButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63C1556516DD4EA700CDAA5A /* slideInButton@2x.png */; };
+		63C1556816DD4EA700CDAA5A /* slideInButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 63C1556616DD4EA700CDAA5A /* slideInButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		6341888516DBEDC4001F7FAA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		6341888716DBEDC4001F7FAA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6341889D16DBF47E001F7FAA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		63C1556516DD4EA700CDAA5A /* slideInButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slideInButton@2x.png"; sourceTree = "<group>"; };
+		63C1556616DD4EA700CDAA5A /* slideInButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slideInButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,7 @@
 			children = (
 				6341889D16DBF47E001F7FAA /* QuartzCore.framework */,
 				6341887716DBEDC4001F7FAA /* AccessiblityDemo */,
+				63C1556416DD4E9600CDAA5A /* Resources */,
 				6341887016DBEDC4001F7FAA /* Frameworks */,
 				6341886F16DBEDC4001F7FAA /* Products */,
 			);
@@ -101,6 +106,15 @@
 				6341888716DBEDC4001F7FAA /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		63C1556416DD4E9600CDAA5A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63C1556516DD4EA700CDAA5A /* slideInButton@2x.png */,
+				63C1556616DD4EA700CDAA5A /* slideInButton.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,6 +172,8 @@
 				6341888416DBEDC4001F7FAA /* Default.png in Resources */,
 				6341888616DBEDC4001F7FAA /* Default@2x.png in Resources */,
 				6341888816DBEDC4001F7FAA /* Default-568h@2x.png in Resources */,
+				63C1556716DD4EA700CDAA5A /* slideInButton@2x.png in Resources */,
+				63C1556816DD4EA700CDAA5A /* slideInButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
