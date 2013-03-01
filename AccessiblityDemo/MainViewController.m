@@ -30,6 +30,7 @@
 
 - (void)setColorPalette:(ColorPalette *)colorPalette {
     if (colorPalette == _colorPalette) return;
+    _colorPalette = colorPalette;
     
     [[self.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
