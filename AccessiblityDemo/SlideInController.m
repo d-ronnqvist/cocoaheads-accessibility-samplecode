@@ -111,15 +111,31 @@ const CGFloat kSlidingFrameWidth = 320.0;
     return _slideInButton;
 }
 
+- (void)userDidSwipeLeft:(UISwipeGestureRecognizer *)swipe {
+    [self slideOut];
+}
+
+- (void)userDidSwipeRight:(UISwipeGestureRecognizer *)swipe {
+    [self slideIn];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self updateSlideInButton:nil];
     
     if ([self.view.gestureRecognizers count] == 0) {
-        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                              action:@selector(userDidPan:)];
-        [self.view addGestureRecognizer:pan];
+        
+        UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                   action:@selector(userDidSwipeLeft:)];
+        left.direction = UISwipeGestureRecognizerDirectionLeft;
+        UISwipeGestureRecognizer *right = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                   action:@selector(userDidSwipeRight:)];
+        right.direction = UISwipeGestureRecognizerDirectionRight;
+        
+        
+        [self.view addGestureRecognizer:left];
+        [self.view addGestureRecognizer:right];
         
     }
     
@@ -138,11 +154,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
     self.slidingController.view.accessibilityViewIsModal = YES;
     
     [UIView animateWithDuration:0.3 animations:^{
-        if (CGAffineTransformIsIdentity(self.slidingController.view.transform)) {
-            self.slidingController.view.frame = [self slidingFrameOnScreen:YES];
-        } else {
-            self.slidingController.view.transform = CGAffineTransformIdentity;
-        }
+        self.slidingController.view.frame = [self slidingFrameOnScreen:YES];
         self.mainController.view.transform = CGAffineTransformMakeScale(0.95, 0.95);
     } completion:^(BOOL finished) {
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
@@ -154,11 +166,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
     self.mainController.view.isAccessibilityElement = NO;
     
     [UIView animateWithDuration:0.3 animations:^{
-        if (CGAffineTransformIsIdentity(self.slidingController.view.transform)) {
-            self.slidingController.view.frame = [self slidingFrameOnScreen:NO];
-        } else {
-            self.slidingController.view.transform = CGAffineTransformIdentity;
-        }
+        self.slidingController.view.frame = [self slidingFrameOnScreen:NO];
         self.mainController.view.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
@@ -170,50 +178,6 @@ const CGFloat kSlidingFrameWidth = 320.0;
     if (CGRectGetMaxX(self.slidingController.view.frame) <= 0) return;
     
     [self slideOut];
-}
-
-- (void)userDidPan:(UIPanGestureRecognizer *)pan {
-    CGPoint newPosition = self.slidingController.view.layer.position;
-    if (pan.state == UIGestureRecognizerStateBegan) {
-        self.startX = CGRectGetMinX(self.slidingController.view.frame);
-        
-        CGFloat screenScaleFactor = [UIScreen mainScreen].scale;
-        
-        self.mainController.view.layer.shouldRasterize = YES;
-        self.mainController.view.layer.rasterizationScale = screenScaleFactor;
-        
-        self.slidingController.view.layer.shouldRasterize = YES;
-        self.slidingController.view.layer.rasterizationScale = screenScaleFactor;
-    }
-    
-    CGFloat translation = [pan translationInView:self.view].x;
-    CGFloat percentageVisible = MAX(0.0, 1.0+(self.startX+translation)/kSlidingFrameWidth);
-    CGFloat scaleFactor = 1.0-pow(percentageVisible,0.75)*0.05;
-    self.mainController.view.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
-    
-    CGFloat stretchFactor = MAX(1.0, percentageVisible);
-    self.slidingController.view.transform = CGAffineTransformMakeScale(pow(stretchFactor, 0.125), 1.0);
-    
-//    CGFloat translation = [pan translationInView:self.view].x;
-    
-    CGFloat newX = MIN(self.startX+translation, 0.0);
-    newX = MAX(newX, -kSlidingFrameWidth);
-    newPosition.x = newX;
-    
-//    CGFloat percentageVisible = 1.0+CGRectGetMinX(self.startX+translation)/kSlidingFrameWidth;
-    
-    if (pan.state == UIGestureRecognizerStateEnded ||
-        pan.state == UIGestureRecognizerStateCancelled) {
-        
-        if (percentageVisible > 0.5) {
-            [self slideIn];
-        } else {
-            [self slideOut];
-        }
-        return;
-    }
-    
-    self.slidingController.view.layer.position = newPosition;
 }
 
 - (void)didReceiveMemoryWarning
