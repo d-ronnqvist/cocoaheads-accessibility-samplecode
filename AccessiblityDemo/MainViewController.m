@@ -9,10 +9,6 @@
 #import "MainViewController.h"
 #import "ColorPalette.h"
 
-#import <QuartzCore/QuartzCore.h>
-
-const CGFloat kCellMargin = 15.0;
-
 @interface MainViewController ()
 
 @end
@@ -37,10 +33,10 @@ const CGFloat kCellMargin = 15.0;
     
     [[self.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    CGFloat currentHeight = kCellMargin;
+    CGFloat currentHeight = 0.0;
     NSInteger count = [colorPalette.colors count];
     NSInteger row = 0;
-    CGFloat cellSide = (CGRectGetWidth(self.view.bounds)-kCellMargin)/count - kCellMargin;
+    CGFloat cellSide = CGRectGetWidth(self.view.bounds)/count;
     while (currentHeight < CGRectGetHeight(self.view.bounds)) {
         ++row;
         for (NSInteger column = 0; column<count; ++column) {
@@ -50,22 +46,14 @@ const CGFloat kCellMargin = 15.0;
             cell.isAccessibilityElement = YES;
             cell.accessibilityLabel = [NSString stringWithFormat:@"Row: %d, Column: %d", row, column+1];
             
-            cell.frame = CGRectMake(column*(kCellMargin+cellSide)+kCellMargin, currentHeight, cellSide, cellSide);
-            
-            cell.layer.shadowColor = [UIColor blackColor].CGColor;
-            cell.layer.shadowOffset = CGSizeMake(0.0, 1.0);
-            cell.layer.shadowOpacity = 0.75;
-            cell.layer.shadowRadius = 3.0;
-            CGPathRef shadowPath = CGPathCreateWithRect(cell.bounds, NULL);
-            cell.layer.shadowPath = shadowPath;
-            CGPathRelease(shadowPath);
+            cell.frame = CGRectMake(column*cellSide, currentHeight, cellSide, cellSide);
+            cell.frame = CGRectIntersection(cell.frame, self.view.bounds);
             
             [self.view addSubview:cell];
         }
-        currentHeight += cellSide+kCellMargin;
+        currentHeight += cellSide;
     }
 }
-
 
 
 @end
