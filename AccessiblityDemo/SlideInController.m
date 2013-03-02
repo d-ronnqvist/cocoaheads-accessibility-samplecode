@@ -17,10 +17,19 @@ const CGFloat kSlidingFrameWidth = 320.0;
 @property (assign) CGFloat startX;
 @property (strong, nonatomic) UIButton *slideInButton;
 
+@property (nonatomic, strong) UIView *slidingContainerView;
+
 @end
 
 @implementation SlideInController
 
+- (UIView *)slidingContainerView {
+    if (!_slidingContainerView) {
+        _slidingContainerView = [UIView new];
+        [self.view addSubview:_slidingContainerView];
+    }
+    return _slidingContainerView;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,7 +48,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
         // Add if not already there (shouldn't happen)
         if (![self.slideInButton isDescendantOfView:self.view]) {
             [self.view insertSubview:self.slideInButton
-                        belowSubview:self.slidingController.view];
+                        belowSubview:self.slidingContainerView];
         } else {
             [self.view bringSubviewToFront:self.slideInButton];
         }
@@ -139,8 +148,8 @@ const CGFloat kSlidingFrameWidth = 320.0;
         
     }
     
-    if (self.slidingController) {
-        self.slidingController.view.frame = [self slidingFrameOnScreen:NO];
+    if (_slidingContainerView) {
+        _slidingContainerView.frame = [self slidingFrameOnScreen:NO];
     }
     if (self.mainController) {
         self.mainController.view.frame = self.view.bounds;
@@ -152,9 +161,12 @@ const CGFloat kSlidingFrameWidth = 320.0;
     self.mainController.view.accessibilityLabel = @"Dismiss";
     self.mainController.view.accessibilityHint = @"Double tap to dismiss color palette.";
     self.slidingController.view.accessibilityViewIsModal = YES;
+    self.slidingContainerView.hidden = NO;
+    self.slidingContainerView.accessibilityViewIsModal = YES;
+//    self.slidingController.view.accessibilityViewIsModal = YES;
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.slidingController.view.frame = [self slidingFrameOnScreen:YES];
+        self.slidingContainerView.frame = [self slidingFrameOnScreen:YES];
         self.mainController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
     } completion:^(BOOL finished) {
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
@@ -163,19 +175,22 @@ const CGFloat kSlidingFrameWidth = 320.0;
 }
 
 - (void)slideOut {
-    self.mainController.view.isAccessibilityElement = NO;
+//    self.mainController.view.isAccessibilityElement = NO;
+    self.slidingContainerView.accessibilityViewIsModal = NO;
+//    self.slidingController.view.accessibilityViewIsModal = NO;
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.slidingController.view.frame = [self slidingFrameOnScreen:NO];
+        self.slidingContainerView.frame = [self slidingFrameOnScreen:NO];
         self.mainController.view.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
+        self.slidingContainerView.hidden = YES;
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
                                         self.slideInButton);                      // Select slide in button
     }];
 }
 
 - (void)userDidTap:(UITapGestureRecognizer *)tap {
-    if (CGRectGetMaxX(self.slidingController.view.frame) <= 0) return;
+    if (CGRectGetMaxX(self.slidingContainerView.frame) <= 0) return;
     
     [self slideOut];
 }
@@ -196,7 +211,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
     _mainController = mainController;
     
     if (self.slidingController) {
-        [self.view insertSubview:mainController.view belowSubview:self.slidingController.view];
+        [self.view insertSubview:mainController.view belowSubview:self.slidingContainerView];
     } else {
         [self.view addSubview:mainController.view];
     }
@@ -227,7 +242,10 @@ const CGFloat kSlidingFrameWidth = 320.0;
     _slidingController = slidingController;
     
     CGRect slidingFrame = [self slidingFrameOnScreen:NO];
-    [self.view addSubview:slidingController.view];
+    
+    [self.slidingContainerView addSubview:slidingController.view];
+    self.slidingContainerView.frame = slidingFrame;
+    slidingFrame.origin = CGPointZero;
     slidingController.view.frame = slidingFrame;
     
     slidingController.view.clipsToBounds = NO;
