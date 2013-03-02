@@ -37,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithWhite:0.575 alpha:1.000];
+    self.view.backgroundColor = [UIColor blackColor];
     
     
     // Observe AnnouncementDidFinish to know when an announcment finishes
@@ -55,14 +55,11 @@
                                                   object:nil];
 }
 
-- (void)setColorPalette:(ColorPalette *)colorPalette {
-    if (colorPalette == _colorPalette) return;
-    _colorPalette = colorPalette;
-    
+- (void)refreshColorGrid {
     [[self.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
+    
     CGFloat currentHeight = 0.0;
-    NSInteger count = [colorPalette.colors count];
+    NSInteger count = [self.colorPalette.colors count];
     NSInteger row = 0;
     CGFloat cellSide = CGRectGetWidth(self.view.bounds)/count;
     
@@ -72,7 +69,7 @@
         ++row;
         for (NSInteger column = 0; column<count; ++column) {
             UIView *cell = [UIView new];
-            cell.backgroundColor = [colorPalette randomColor];
+            cell.backgroundColor = [self.colorPalette randomColor];
             
             // Each cell is configures as it's own element and
             // the name of the closest color is used as the label
@@ -89,6 +86,16 @@
         }
         currentHeight += cellSide;
     }
+}
+
+
+- (void)setColorPalette:(ColorPalette *)colorPalette {
+    if (colorPalette == _colorPalette) return;
+    _colorPalette = colorPalette;
+    
+    if (![self isViewLoaded]) return;
+    
+    [self refreshColorGrid];
     
     // Used to know then to care about announcement notifications
     self.didPostAccessiblityNotification = YES;
@@ -121,6 +128,36 @@
         self.didPostAccessiblityNotification = NO;
     }
     
+}
+
+
+//     _  _  ___ _____ ___   _   _____ _                  _               _   _    _
+//    | \| |/ _ \_   _| __| (_) |_   _| |_  ___ _ _ ___  (_)___  _ _  ___| |_| |_ (_)_ _  __ _
+//    | .` | (_) || | | _|   _    | | | ' \/ -_) '_/ -_) | (_-< | ' \/ _ \  _| ' \| | ' \/ _` |
+//    |_|\_|\___/ |_| |___| (_)   |_| |_||_\___|_| \___| |_/__/ |_||_\___/\__|_||_|_|_||_\__, |
+//          __            _             __           _   _             _                 |___/
+//     ___ / _| __ ____ _| |_  _ ___   / _|___ _ _  | |_| |_  ___   __| |___ _ __  ___
+//    / _ \  _| \ V / _` | | || / -_) |  _/ _ \ '_| |  _| ' \/ -_) / _` / -_) '  \/ _ \
+//    \___/_|    \_/\__,_|_|\_,_\___| |_| \___/_|    \__|_||_\___| \__,_\___|_|_|_\___/
+//           __ _             _   _    _                _     _
+//     __ _ / _| |_ ___ _ _  | |_| |_ (_)___  _ __  ___(_)_ _| |_
+//    / _` |  _|  _/ -_) '_| |  _| ' \| (_-< | '_ \/ _ \ | ' \  _|  _ _ _
+//    \__,_|_|  \__\___|_|    \__|_||_|_/__/ | .__/\___/_|_||_\__| (_|_|_)
+//
+
+
+#pragma mark -
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    
+    [self refreshColorGrid];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self refreshColorGrid];
 }
 
 @end
