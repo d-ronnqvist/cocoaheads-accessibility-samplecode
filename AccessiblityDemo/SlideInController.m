@@ -49,6 +49,12 @@ const CGFloat kSlidingFrameWidth = 320.0;
     self.view.backgroundColor = [UIColor colorWithWhite:0.262 alpha:1.000];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIAccessibilityVoiceOverStatusChanged
+                                                  object:nil];
+}
+
 - (void)updateSlideInButton:(NSNotification *)notification {
     if (UIAccessibilityIsVoiceOverRunning()) {
         // Add if not already there (shouldn't happen)

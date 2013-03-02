@@ -21,6 +21,17 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithWhite:0.575 alpha:1.000];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(announcmentFinished:)
+                                                 name:UIAccessibilityAnnouncementDidFinishNotification
+                                               object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIAccessibilityAnnouncementDidFinishNotification
+                                                  object:nil];
 }
 
 - (void)didReceiveMemoryWarning
