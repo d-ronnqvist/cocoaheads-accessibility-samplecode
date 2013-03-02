@@ -55,14 +55,17 @@ const CGFloat kSlidingFrameWidth = 320.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithWhite:0.262 alpha:1.000];
     
+    // Observe the VoiceOverStatusChanged notification to know when VoiceOver
+    // is turned on or off. This is used to turn on features that only need to
+    // be on for VoiceOver and to possibly display new elements on screen.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateSlideInButton:)
                                                  name:UIAccessibilityVoiceOverStatusChanged
                                                object:nil];
     
-    self.view.backgroundColor = [UIColor colorWithWhite:0.262 alpha:1.000];
+    
 }
 
 - (void)dealloc {
@@ -71,30 +74,87 @@ const CGFloat kSlidingFrameWidth = 320.0;
                                                   object:nil];
 }
 
+// This method puts a new button on screen if VoiceOver is on
+// and removes it if VoiceOver is off. The button is used as
+// a replacement for a swipe gesture.
 - (void)updateSlideInButton:(NSNotification *)notification {
+    // Check if VoiceOver is running
     if (UIAccessibilityIsVoiceOverRunning()) {
-        // Add if not already there (shouldn't happen)
+        // VoiceOver is on so the replacement button should show
+        
+        // Add button, if not already there otherwise bring it to front
         if (![self.slideInButton isDescendantOfView:self.view]) {
             [self.view insertSubview:self.slideInButton
                         belowSubview:self.slidingContainerView];
         } else {
             [self.view bringSubviewToFront:self.slideInButton];
         }
+        // Select the new button.
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
                                         self.slideInButton);
     } else {
-        // Remove
+        // Remove (since VoiceOver is off)
         [self.slideInButton removeFromSuperview];
     }
 }
 
+- (void)slideIn {
+    // Notify the user that the screen changed and select the new view
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
+                                    self.slidingController.view);             // Select view that slid in
+    
+    // Make the container "modal" so that swiping the next element
+    // Won't take you to the main view (which is visually obscured)
+    self.slidingContainerView.accessibilityViewIsModal = YES;
+    
+    // Actual sliding animation ...
+    [UIView animateWithDuration:0.3 animations:^{
+        self.slidingContainerView.frame = [self slidingFrameOnScreen:YES];
+        self.mainController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+    }];
+}
+
+- (void)slideOut {
+    // Notifiy the user that the screen changed and select something
+    // that will be on screen (the slide in view will slide out).
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
+                                    self.slideInButton);                      // Select slide in button
+    
+    // Make the container not modal again so that the main view
+    // can be selected again.
+    self.slidingContainerView.accessibilityViewIsModal = NO;
+    
+    // Actual sliding animation ..
+    [UIView animateWithDuration:0.3 animations:^{
+        self.slidingContainerView.frame = [self slidingFrameOnScreen:NO];
+        self.mainController.view.transform = CGAffineTransformIdentity;
+    }];
+}
+
+
+//     _  _  ___ _____ ___   _   _____ _                  _               _   _    _
+//    | \| |/ _ \_   _| __| (_) |_   _| |_  ___ _ _ ___  (_)___  _ _  ___| |_| |_ (_)_ _  __ _
+//    | .` | (_) || | | _|   _    | | | ' \/ -_) '_/ -_) | (_-< | ' \/ _ \  _| ' \| | ' \/ _` |
+//    |_|\_|\___/ |_| |___| (_)   |_| |_||_\___|_| \___| |_/__/ |_||_\___/\__|_||_|_|_||_\__, |
+//          __            _             __           _   _             _                 |___/
+//     ___ / _| __ ____ _| |_  _ ___   / _|___ _ _  | |_| |_  ___   __| |___ _ __  ___
+//    / _ \  _| \ V / _` | | || / -_) |  _/ _ \ '_| |  _| ' \/ -_) / _` / -_) '  \/ _ \
+//    \___/_|    \_/\__,_|_|\_,_\___| |_| \___/_|    \__|_||_\___| \__,_\___|_|_|_\___/
+//           __ _             _   _    _                _     _
+//     __ _ / _| |_ ___ _ _  | |_| |_ (_)___  _ __  ___(_)_ _| |_
+//    / _` |  _|  _/ -_) '_| |  _| ' \| (_-< | '_ \/ _ \ | ' \  _|  _ _ _
+//    \__,_|_|  \__\___|_|    \__|_||_|_/__/ | .__/\___/_|_||_\__| (_|_|_)
+//                                           |_|
+
+#pragma mark -
+
 - (UIButton *)slideInButton {
     if (!_slideInButton) {
         UIButton *slideInButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        slideInButton.isAccessibilityElement = YES;
-        slideInButton.accessibilityLabel = @"Slide in";
-        slideInButton.accessibilityHint = @"Slide in a palette of colors.";
-        slideInButton.frame = CGRectMake(30, 30, 90, 70);
+        slideInButton.isAccessibilityElement = YES;                            // Even though there is some VoiceOver code
+        slideInButton.accessibilityLabel = @"Slide in";                        // here, it is not considered a main part
+        slideInButton.accessibilityHint = @"Slide in a palette of colors.";    // of the demo and is otherwise to long and
+        slideInButton.frame = CGRectMake(30, 30, 90, 70);                      // more a distraction ...
         
         CALayer *layer = slideInButton.layer;
         layer.shadowColor = [UIColor blackColor].CGColor;
@@ -187,33 +247,6 @@ const CGFloat kSlidingFrameWidth = 320.0;
     [super viewDidAppear:animated];
     
     [self updateSlideInButton:nil];
-}
-
-- (void)slideIn {
-    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
-                                    self.slidingController.view);             // Select view that slid in
-    
-    self.slidingContainerView.hidden = NO;
-    self.slidingContainerView.accessibilityViewIsModal = YES;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.slidingContainerView.frame = [self slidingFrameOnScreen:YES];
-        self.mainController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
-    }];
-}
-
-- (void)slideOut {
-    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
-                                    self.slideInButton);                      // Select slide in button
-    
-    self.slidingContainerView.accessibilityViewIsModal = NO;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.slidingContainerView.frame = [self slidingFrameOnScreen:NO];
-        self.mainController.view.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-        self.slidingContainerView.hidden = YES;
-    }];
 }
 
 - (void)userDidTap:(UITapGestureRecognizer *)tap {

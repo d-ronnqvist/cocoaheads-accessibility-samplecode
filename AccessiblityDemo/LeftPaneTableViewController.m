@@ -21,9 +21,15 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-// This controller is only ment for filling out the demo.
-// Nothing of value can be found in this code.
+//     _  _  ___ _____ ___   _   _____ _                  _               _   _    _
+//    | \| |/ _ \_   _| __| (_) |_   _| |_  ___ _ _ ___  (_)___  _ _  ___| |_| |_ (_)_ _  __ _
+//    | .` | (_) || | | _|   _    | | | ' \/ -_) '_/ -_) | (_-< | ' \/ _ \  _| ' \| | ' \/ _` |
+//    |_|\_|\___/ |_| |___| (_)   |_| |_||_\___|_| \___| |_/__/ |_||_\___/\__|_||_|_|_||_\__, |
+//          __            _             __           _   _             _                 |___/
+//     ___ / _| __ ____ _| |_  _ ___   / _|___ _ _  | |_| |_  ___   __| |___ _ __  ___  | |_  ___ _ _ ___
+//    / _ \  _| \ V / _` | | || / -_) |  _/ _ \ '_| |  _| ' \/ -_) / _` / -_) '  \/ _ \ | ' \/ -_) '_/ -_)
+//    \___/_|    \_/\__,_|_|\_,_\___| |_| \___/_|    \__|_||_\___| \__,_\___|_|_|_\___/ |_||_\___|_| \___|
+//
 
 #import "LeftPaneTableViewController.h"
 #import "ColorPaletteCell.h"
@@ -60,12 +66,6 @@ static NSString * const kPaletteCellIdentifier = @"PaletteCellIdentifier";
     self.palettes = [self arrayOfColorPalettes];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -21,13 +21,23 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+//     _  _  ___ _____ ___   _   _____ _                  _               _   _    _
+//    | \| |/ _ \_   _| __| (_) |_   _| |_  ___ _ _ ___  (_)___  _ _  ___| |_| |_ (_)_ _  __ _
+//    | .` | (_) || | | _|   _    | | | ' \/ -_) '_/ -_) | (_-< | ' \/ _ \  _| ' \| | ' \/ _` |
+//    |_|\_|\___/ |_| |___| (_)   |_| |_||_\___|_| \___| |_/__/ |_||_\___/\__|_||_|_|_||_\__, |
+//          __            _             __           _   _             _                 |___/
+//     ___ / _| __ ____ _| |_  _ ___   / _|___ _ _  | |_| |_  ___   __| |___ _ __  ___  | |_  ___ _ _ ___
+//    / _ \  _| \ V / _` | | || / -_) |  _/ _ \ '_| |  _| ' \/ -_) / _` / -_) '  \/ _ \ | ' \/ -_) '_/ -_)
+//    \___/_|    \_/\__,_|_|\_,_\___| |_| \___/_|    \__|_||_\___| \__,_\___|_|_|_\___/ |_||_\___|_| \___|
+//
+
 #import "ColorNameFinder.h"
 
 static NSCache *foundNames;
 static NSArray *allColorNames;
 
 
-
+// Simple data type class for the RGB values and the name
 @interface ColorNameObject : NSObject
 
 @property (assign) NSInteger red;
@@ -39,6 +49,7 @@ static NSArray *allColorNames;
 - (id)initWithName:(NSString *)name;
 
 @end
+
 
 
 
@@ -172,6 +183,8 @@ void SKScanHexColor(NSString * hexString, float * red, float * green, float * bl
 
 @end
 
+
+// Implementation with only a constructor with the name as a parameter
 @implementation ColorNameObject
 
 - (id)initWithName:(NSString *)name

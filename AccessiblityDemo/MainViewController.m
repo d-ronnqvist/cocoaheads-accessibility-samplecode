@@ -37,9 +37,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithWhite:0.575 alpha:1.000];
     
+    
+    // Observe AnnouncementDidFinish to know when an announcment finishes
+    // and if it succuded or not. This is used to repeat announcements
+    // that were aborted.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(announcmentFinished:)
                                                  name:UIAccessibilityAnnouncementDidFinishNotification
@@ -52,19 +55,12 @@
                                                   object:nil];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)setColorPalette:(ColorPalette *)colorPalette {
     if (colorPalette == _colorPalette) return;
     _colorPalette = colorPalette;
     
     [[self.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
-    
     CGFloat currentHeight = 0.0;
     NSInteger count = [colorPalette.colors count];
     NSInteger row = 0;
@@ -78,8 +74,13 @@
             UIView *cell = [UIView new];
             cell.backgroundColor = [colorPalette randomColor];
             
-            cell.isAccessibilityElement = YES;
-            cell.accessibilityLabel = [nameFinder closestColorNameForColor:cell.backgroundColor];
+            // Each cell is configures as it's own element and
+            // the name of the closest color is used as the label
+            // to provide value to a visully impared user who
+            // might not otherwise be able to know anything about
+            // the cell which only represents a color.
+            cell.isAccessibilityElement = YES; // Make it's own accisisblity element
+            cell.accessibilityLabel = [nameFinder closestColorNameForColor:cell.backgroundColor]; // Set the name of the color as the label
             
             cell.frame = CGRectMake(column*cellSide, currentHeight, cellSide, cellSide);
             cell.frame = CGRectIntersection(cell.frame, self.view.bounds);
@@ -89,25 +90,31 @@
         currentHeight += cellSide;
     }
     
+    // Used to know then to care about announcement notifications
     self.didPostAccessiblityNotification = YES;
     
     double delayInSeconds = 2.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        // It was a better experience to wait a short time before announcing the new color.
         
-    
-    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification,
-                                    [NSString stringWithFormat:@"New color palette is visibel on screen: %@", colorPalette.name]);
+        // This will use VoiceOver to read the announcement
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification,
+                                        [NSString stringWithFormat:@"New color palette is visibel on screen: %@", colorPalette.name]);
     });
 }
 
+// When an announcement finishes this will get called.
+// It is used to possibly repeat announcements.
 - (void)announcmentFinished:(NSNotification *)notification {
     if (!self.didPostAccessiblityNotification) return;
     
+    // Get the text and if it succeded (read the entire thing) or not
     NSString *announcment = notification.userInfo[UIAccessibilityAnnouncementKeyStringValue];
     BOOL wasSuccessful = [notification.userInfo[UIAccessibilityAnnouncementKeyWasSuccessful] boolValue];
     
     if (!wasSuccessful) {
+        // Repost if everything wasn't read.
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification,
                                         announcment);
     } else {

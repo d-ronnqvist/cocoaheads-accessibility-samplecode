@@ -36,6 +36,38 @@
 
 @implementation ColorPaletteCell
 
+#pragma mark - Accessiblity
+
+// The basic accessiblity setup with Label and Hint.
+// Each cell will have it's own accessiblity since they
+// are the views.
+
+- (BOOL)isAccessibilityElement {
+    return YES; // We don't want subviews to be selectable
+}
+
+- (NSString *)accessibilityLabel {
+    return self.nameLabel.text;
+}
+
+- (NSString *)accessibilityHint {
+    return [NSString stringWithFormat:@"A palette of %@ colors.", self.nameLabel.text];
+}
+
+//     _  _  ___ _____ ___   _   _____ _                  _               _   _    _
+//    | \| |/ _ \_   _| __| (_) |_   _| |_  ___ _ _ ___  (_)___  _ _  ___| |_| |_ (_)_ _  __ _
+//    | .` | (_) || | | _|   _    | | | ' \/ -_) '_/ -_) | (_-< | ' \/ _ \  _| ' \| | ' \/ _` |
+//    |_|\_|\___/ |_| |___| (_)   |_| |_||_\___|_| \___| |_/__/ |_||_\___/\__|_||_|_|_||_\__, |
+//          __            _             __           _   _             _                 |___/
+//     ___ / _| __ ____ _| |_  _ ___   / _|___ _ _  | |_| |_  ___   __| |___ _ __  ___
+//    / _ \  _| \ V / _` | | || / -_) |  _/ _ \ '_| |  _| ' \/ -_) / _` / -_) '  \/ _ \
+//    \___/_|    \_/\__,_|_|\_,_\___| |_| \___/_|    \__|_||_\___| \__,_\___|_|_|_\___/
+//           __ _             _   _    _                _     _
+//     __ _ / _| |_ ___ _ _  | |_| |_ (_)___  _ __  ___(_)_ _| |_
+//    / _` |  _|  _/ -_) '_| |  _| ' \| (_-< | '_ \/ _ \ | ' \  _|  _ _ _
+//    \__,_|_|  \__\___|_|    \__|_||_|_/__/ | .__/\___/_|_||_\__| (_|_|_)
+//                                           |_|
+
 #pragma mark - Lazy loading
 
 - (UILabel *)nameLabel {
@@ -95,20 +127,6 @@
     self.nameLabel.text = colorPalette.name;
     
     [self setNeedsDisplay];
-}
-
-#pragma mark - Accessiblity
-
-- (BOOL)isAccessibilityElement {
-    return YES;
-}
-
-- (NSString *)accessibilityLabel {
-    return self.nameLabel.text;
-}
-
-- (NSString *)accessibilityHint {
-    return [NSString stringWithFormat:@"A palette of %@ colors", self.nameLabel.text];
 }
 
 @end
