@@ -327,7 +327,11 @@ const CGFloat kSlidingFrameWidth = 320.0;
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
+    CGAffineTransform t = self.mainController.view.transform;
+    if (!CGAffineTransformIsIdentity(t)) self.mainController.view.transform = CGAffineTransformIdentity;
     self.mainController.view.frame = self.view.bounds;
+    self.mainController.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
+    if (!CGAffineTransformIsIdentity(t)) self.mainController.view.transform = t;
     self.slidingContainerView.frame = [self slidingFrameOnScreen:self.slidingContainerView.accessibilityViewIsModal];
     self.slidingController.view.frame = self.slidingContainerView.bounds;
 }
