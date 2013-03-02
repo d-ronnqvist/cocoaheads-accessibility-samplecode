@@ -155,7 +155,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
     
     [UIView animateWithDuration:0.3 animations:^{
         self.slidingController.view.frame = [self slidingFrameOnScreen:YES];
-        self.mainController.view.transform = CGAffineTransformMakeScale(0.95, 0.95);
+        self.mainController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
     } completion:^(BOOL finished) {
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
                                         self.slidingController.view);             // Select view that slid in
@@ -237,7 +237,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
     layer.shadowColor = [UIColor blackColor].CGColor;
     layer.shadowOffset = CGSizeZero;
     layer.shadowOpacity = 1.0;
-    layer.shadowRadius = 7.0;
+    layer.shadowRadius = 17.0;
     CGPathRef shadowPath = CGPathCreateWithRect(slidingController.view.bounds, NULL);
     layer.shadowPath = shadowPath;
     CGPathRelease(shadowPath);
