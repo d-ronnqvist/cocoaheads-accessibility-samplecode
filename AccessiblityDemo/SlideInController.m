@@ -64,6 +64,8 @@ const CGFloat kSlidingFrameWidth = 320.0;
         } else {
             [self.view bringSubviewToFront:self.slideInButton];
         }
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
+                                        self.slideInButton);
     } else {
         // Remove
         [self.slideInButton removeFromSuperview];
@@ -117,7 +119,6 @@ const CGFloat kSlidingFrameWidth = 320.0;
         
         layer.borderWidth = 1.0;
         layer.borderColor = [UIColor colorWithWhite:0.421 alpha:1.000].CGColor;
-//        layer.backgroundColor = [UIColor colorWithRed:0.458 green:0.589 blue:0.700 alpha:1.000].CGColor;
 
         [slideInButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
         
@@ -142,9 +143,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self updateSlideInButton:nil];
-    
+        
     if ([self.view.gestureRecognizers count] == 0) {
         
         UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self
@@ -168,36 +167,36 @@ const CGFloat kSlidingFrameWidth = 320.0;
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self updateSlideInButton:nil];
+}
+
 - (void)slideIn {
-    self.mainController.view.isAccessibilityElement = YES;
-    self.mainController.view.accessibilityLabel = @"Dismiss";
-    self.mainController.view.accessibilityHint = @"Double tap to dismiss color palette.";
-    self.slidingController.view.accessibilityViewIsModal = YES;
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
+                                    self.slidingController.view);             // Select view that slid in
+    
     self.slidingContainerView.hidden = NO;
     self.slidingContainerView.accessibilityViewIsModal = YES;
-//    self.slidingController.view.accessibilityViewIsModal = YES;
     
     [UIView animateWithDuration:0.3 animations:^{
         self.slidingContainerView.frame = [self slidingFrameOnScreen:YES];
         self.mainController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
-    } completion:^(BOOL finished) {
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
-                                        self.slidingController.view);             // Select view that slid in
     }];
 }
 
 - (void)slideOut {
-//    self.mainController.view.isAccessibilityElement = NO;
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
+                                    self.slideInButton);                      // Select slide in button
+    
     self.slidingContainerView.accessibilityViewIsModal = NO;
-//    self.slidingController.view.accessibilityViewIsModal = NO;
     
     [UIView animateWithDuration:0.3 animations:^{
         self.slidingContainerView.frame = [self slidingFrameOnScreen:NO];
         self.mainController.view.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         self.slidingContainerView.hidden = YES;
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
-                                        self.slideInButton);                      // Select slide in button
     }];
 }
 
@@ -281,8 +280,8 @@ const CGFloat kSlidingFrameWidth = 320.0;
         __weak MainViewController *weakMain = self.mainController;
         __weak SlideInController  *weakSelf = self;
         self.slidingController.selectionBlock = ^(ColorPalette *palette) {
-            weakMain.colorPalette = palette;
             [weakSelf slideOut];
+            weakMain.colorPalette = palette;
         };
     }
 }
