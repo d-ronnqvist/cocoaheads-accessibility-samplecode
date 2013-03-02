@@ -18,7 +18,7 @@ Now tap on the button and see the list slide in from the side. Notice that you c
 Tap on the button again to see the list again. Now use the escape gesture (two finger swipe like a Z) to dismiss the list. This is a system wide “back”/“dismiss” gesture.
 
 # Know defects
-The focues on the project is accesisbliy so there are _plenty_ of things missing. One very obvious is that the code only looks good in Portrait and doesn’t support other orientatitions. Another big thing is localization. The entire app is in English only (sorry). For a non, demo app you should always localize all your accessiblity labels and hints.
+The focues on the project is accesisbliy so there are plenty of things missing. One example is that the rotation of the color palette grid is very ugly. Another big thing is localization. The entire app is in English only (sorry). For a non, demo app you should always localize all your accessiblity labels and hints.
 
 # License 
 All sample code is put under MIT license to help spread the accessiblity. 
