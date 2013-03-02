@@ -35,7 +35,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
 }
 
 - (void)updateSlideInButton:(NSNotification *)notification {
-    if (UIAccessibilityIsVoiceOverRunning() || YES) {
+    if (UIAccessibilityIsVoiceOverRunning()) {
         // Add if not already there (shouldn't happen)
         if (![self.slideInButton isDescendantOfView:self.view]) {
             [self.view insertSubview:self.slideInButton
