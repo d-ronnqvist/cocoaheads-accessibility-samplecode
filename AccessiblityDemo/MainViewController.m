@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "ColorPalette.h"
+#import "ColorNameFinder.h"
 
 @interface MainViewController ()
 
@@ -38,6 +39,9 @@
     NSInteger count = [colorPalette.colors count];
     NSInteger row = 0;
     CGFloat cellSide = CGRectGetWidth(self.view.bounds)/count;
+    
+    ColorNameFinder *nameFinder = [ColorNameFinder new];
+    
     while (currentHeight < CGRectGetHeight(self.view.bounds)) {
         ++row;
         for (NSInteger column = 0; column<count; ++column) {
@@ -45,7 +49,7 @@
             cell.backgroundColor = [colorPalette randomColor];
             
             cell.isAccessibilityElement = YES;
-            cell.accessibilityLabel = [NSString stringWithFormat:@"Colored cell (row %d, column %d)", row, column+1];
+            cell.accessibilityLabel = [nameFinder closestColorNameForColor:cell.backgroundColor];
             
             cell.frame = CGRectMake(column*cellSide, currentHeight, cellSide, cellSide);
             cell.frame = CGRectIntersection(cell.frame, self.view.bounds);
