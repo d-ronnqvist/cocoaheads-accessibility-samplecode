@@ -45,7 +45,7 @@
             cell.backgroundColor = [colorPalette randomColor];
             
             cell.isAccessibilityElement = YES;
-            cell.accessibilityLabel = [NSString stringWithFormat:@"Row: %d, Column: %d", row, column+1];
+            cell.accessibilityLabel = [NSString stringWithFormat:@"Colored cell (row %d, column %d)", row, column+1];
             
             cell.frame = CGRectMake(column*cellSide, currentHeight, cellSide, cellSide);
             cell.frame = CGRectIntersection(cell.frame, self.view.bounds);
