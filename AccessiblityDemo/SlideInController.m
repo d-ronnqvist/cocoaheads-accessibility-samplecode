@@ -324,6 +324,14 @@ const CGFloat kSlidingFrameWidth = 320.0;
     [slidingController didMoveToParentViewController:self];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    self.mainController.view.frame = self.view.bounds;
+    self.slidingContainerView.frame = [self slidingFrameOnScreen:self.slidingContainerView.accessibilityViewIsModal];
+    self.slidingController.view.frame = self.slidingContainerView.bounds;
+}
+
 - (void)setUpSelectionBlock {
     if (_mainController && _slidingController) { 
         __weak MainViewController *weakMain = self.mainController;
