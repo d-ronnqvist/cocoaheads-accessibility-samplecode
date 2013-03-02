@@ -102,8 +102,15 @@ static NSString * const kPaletteCellIdentifier = @"PaletteCellIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ColorPaletteCell *cell = [tableView dequeueReusableCellWithIdentifier:kPaletteCellIdentifier
-                                                            forIndexPath:indexPath];
+    // Be aware that there is a VoiceOver bug that causes a crash with
+    // dequeueReusableCellWithIdentifier:forIndexPath: (the iOS 6 API)
+    // Use the older API instead
+    ColorPaletteCell *cell = [tableView dequeueReusableCellWithIdentifier:kPaletteCellIdentifier];
+    if (!cell) {
+        cell = [[ColorPaletteCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:kPaletteCellIdentifier];
+    }
+    
     
     [cell applyStyleAccordingToColorPalette:self.palettes[indexPath.row]];
     
