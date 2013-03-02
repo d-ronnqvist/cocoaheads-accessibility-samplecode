@@ -227,7 +227,6 @@ const CGFloat kSlidingFrameWidth = 320.0;
     _slidingController = slidingController;
     
     CGRect slidingFrame = [self slidingFrameOnScreen:NO];
-    slidingController.view.layer.anchorPoint = CGPointMake(0.0, 0.5); // for stretching
     [self.view addSubview:slidingController.view];
     slidingController.view.frame = slidingFrame;
     
