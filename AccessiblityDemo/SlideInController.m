@@ -23,6 +23,11 @@ const CGFloat kSlidingFrameWidth = 320.0;
 
 @implementation SlideInController
 
+- (BOOL)accessibilityPerformEscape {
+    [self slideOut];
+    return YES;
+}
+
 - (UIView *)slidingContainerView {
     if (!_slidingContainerView) {
         _slidingContainerView = [UIView new];
@@ -30,6 +35,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
     }
     return _slidingContainerView;
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
