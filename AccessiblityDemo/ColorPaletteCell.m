@@ -118,6 +118,7 @@
                                     CGRectGetHeight(self.contentView.bounds));
     for (NSInteger colorIndex = 0; colorIndex < [colors count]; ++colorIndex) {
         UIView *segment = [UIView new];
+        segment.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         segment.backgroundColor = colors[colorIndex];
         segment.frame = CGRectMake(colorIndex*segmentSize.width, 0,
                                    segmentSize.width, segmentSize.height);
