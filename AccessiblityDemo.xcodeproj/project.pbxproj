@@ -24,6 +24,8 @@
 		634188A416DC0BDB001F7FAA /* ColorPaletteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 634188A316DC0BDB001F7FAA /* ColorPaletteCell.m */; };
 		63C1556716DD4EA700CDAA5A /* slideInButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63C1556516DD4EA700CDAA5A /* slideInButton@2x.png */; };
 		63C1556816DD4EA700CDAA5A /* slideInButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 63C1556616DD4EA700CDAA5A /* slideInButton.png */; };
+		6FA49B5116E239CA00B9EEA8 /* colorName.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FA49B5016E239CA00B9EEA8 /* colorName.json */; };
+		6FA49B5416E248B900B9EEA8 /* ColorNameFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA49B5316E248B900B9EEA8 /* ColorNameFinder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,9 @@
 		634188A316DC0BDB001F7FAA /* ColorPaletteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPaletteCell.m; sourceTree = "<group>"; };
 		63C1556516DD4EA700CDAA5A /* slideInButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slideInButton@2x.png"; sourceTree = "<group>"; };
 		63C1556616DD4EA700CDAA5A /* slideInButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slideInButton.png; sourceTree = "<group>"; };
+		6FA49B5016E239CA00B9EEA8 /* colorName.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = colorName.json; sourceTree = "<group>"; };
+		6FA49B5216E248B900B9EEA8 /* ColorNameFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorNameFinder.h; sourceTree = "<group>"; };
+		6FA49B5316E248B900B9EEA8 /* ColorNameFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorNameFinder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +119,9 @@
 				6341889B16DBF365001F7FAA /* MainViewController.m */,
 				6341889F16DC031D001F7FAA /* ColorPalette.h */,
 				634188A016DC031D001F7FAA /* ColorPalette.m */,
+				6FA49B5216E248B900B9EEA8 /* ColorNameFinder.h */,
+				6FA49B5316E248B900B9EEA8 /* ColorNameFinder.m */,
+				6FA49B5016E239CA00B9EEA8 /* colorName.json */,
 				6341887816DBEDC4001F7FAA /* Supporting Files */,
 			);
 			path = AccessiblityDemo;
@@ -199,6 +207,7 @@
 				6341888816DBEDC4001F7FAA /* Default-568h@2x.png in Resources */,
 				63C1556716DD4EA700CDAA5A /* slideInButton@2x.png in Resources */,
 				63C1556816DD4EA700CDAA5A /* slideInButton.png in Resources */,
+				6FA49B5116E239CA00B9EEA8 /* colorName.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +225,7 @@
 				6341889C16DBF365001F7FAA /* MainViewController.m in Sources */,
 				634188A116DC031D001F7FAA /* ColorPalette.m in Sources */,
 				634188A416DC0BDB001F7FAA /* ColorPaletteCell.m in Sources */,
+				6FA49B5416E248B900B9EEA8 /* ColorNameFinder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
