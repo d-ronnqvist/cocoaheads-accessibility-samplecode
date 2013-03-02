@@ -16,4 +16,7 @@
 @property (strong, nonatomic) LeftPaneTableViewController *slidingController;
 @property (strong, nonatomic) MainViewController *mainController;
 
+- (void)slideIn;
+- (void)slideOut;
+
 @end
