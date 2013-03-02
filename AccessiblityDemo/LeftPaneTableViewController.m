@@ -110,8 +110,6 @@ static NSString * const kPaletteCellIdentifier = @"PaletteCellIdentifier";
 - (NSArray *)arrayOfColorPalettes {
     NSMutableArray *palettes = [NSMutableArray new];
     
-    
-    for (int i = 0; i<4; ++i) {
         
         [palettes addObject:[ColorPalette colorPaletteWithGradientWithName:@"Ice" fromColor:[UIColor colorWithRed:0.145 green:0.867 blue:1.000 alpha:1.000] toColor:[UIColor colorWithRed:0.612 green:0.994 blue:1.000 alpha:1.000] inNumberOfSteps:6]];
         
@@ -138,7 +136,6 @@ static NSString * const kPaletteCellIdentifier = @"PaletteCellIdentifier";
         
         [palettes addObject:[ColorPalette colorPaletteWithGradientWithName:@"Love" fromColor:[UIColor colorWithRed:0.642 green:0.007 blue:0.000 alpha:1.000] toColor:[UIColor colorWithRed:0.992 green:0.440 blue:1.000 alpha:1.000] inNumberOfSteps:8]];
         
-    }
     
     return [palettes copy];
 }
