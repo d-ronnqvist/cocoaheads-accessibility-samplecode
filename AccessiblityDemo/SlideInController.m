@@ -151,10 +151,10 @@ const CGFloat kSlidingFrameWidth = 320.0;
 - (UIButton *)slideInButton {
     if (!_slideInButton) {
         UIButton *slideInButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        slideInButton.isAccessibilityElement = YES;                            // Even though there is some VoiceOver code
-        slideInButton.accessibilityLabel = @"Slide in";                        // here, it is not considered a main part
-        slideInButton.accessibilityHint = @"Slide in a palette of colors.";    // of the demo and is otherwise to long and
-        slideInButton.frame = CGRectMake(30, 30, 90, 70);                      // more a distraction ...
+        slideInButton.isAccessibilityElement = YES;                              // Even though there is some VoiceOver code
+        slideInButton.accessibilityLabel = @"Slide in";                          // here, it is not considered a main part
+        slideInButton.accessibilityHint = @"Slide in a list of color palettes."; // of the demo and is otherwise to long and
+        slideInButton.frame = CGRectMake(30, 30, 90, 70);                        // more a distraction ...
         
         CALayer *layer = slideInButton.layer;
         layer.shadowColor = [UIColor blackColor].CGColor;
