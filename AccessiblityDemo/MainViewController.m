@@ -62,6 +62,10 @@
     NSInteger count = [self.colorPalette.colors count];
     NSInteger row = 0;
     CGFloat cellSide = CGRectGetWidth(self.view.bounds)/count;
+    while (cellSide > 150) {
+        cellSide/= 2;
+        count*=2;
+    }
     
     ColorNameFinder *nameFinder = [ColorNameFinder new];
     
