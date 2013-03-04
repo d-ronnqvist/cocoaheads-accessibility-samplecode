@@ -90,7 +90,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
             [self.view bringSubviewToFront:self.slideInButton];
         }
         // Select the new button.
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
+        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification,
                                         self.slideInButton);
     } else {
         // Remove (since VoiceOver is off)
