@@ -39,6 +39,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
 
 @implementation SlideInController
 
+/// DEMO-6: (Responing to the escape gesture)
 - (BOOL)accessibilityPerformEscape {
     [self slideOut];
     return YES;
@@ -57,6 +58,8 @@ const CGFloat kSlidingFrameWidth = 320.0;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithWhite:0.262 alpha:1.000];
     
+    
+    /// DEMO-1: (Subscribing to VoiceOver notifications)
     // Observe the VoiceOverStatusChanged notification to know when VoiceOver
     // is turned on or off. This is used to turn on features that only need to
     // be on for VoiceOver and to possibly display new elements on screen.
@@ -79,6 +82,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
 // a replacement for a swipe gesture.
 - (void)updateSlideInButton:(NSNotification *)notification {
     // Check if VoiceOver is running
+    /// DEMO-2: (Checking if VoiceOver is on)
     if (UIAccessibilityIsVoiceOverRunning()) {
         // VoiceOver is on so the replacement button should show
         
@@ -90,6 +94,7 @@ const CGFloat kSlidingFrameWidth = 320.0;
             [self.view bringSubviewToFront:self.slideInButton];
         }
         // Select the new button.
+        /// DEMO-3: (Informing the user about new items on screen)
         UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification,
                                         self.slideInButton);
     } else {
@@ -100,11 +105,13 @@ const CGFloat kSlidingFrameWidth = 320.0;
 
 - (void)slideIn {
     // Notify the user that the screen changed and select the new view
+    /// DEMO-4: (Informing the user about complete screen changes)
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, // Screen changed
                                     self.slidingController.view);             // Select view that slid in
     
     // Make the container "modal" so that swiping the next element
     // Won't take you to the main view (which is visually obscured)
+    /// DEMO-5: (Making sibling views unreachable)
     self.slidingContainerView.accessibilityViewIsModal = YES;
     
     // Actual sliding animation ...

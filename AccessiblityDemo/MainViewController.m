@@ -80,6 +80,7 @@
             // to provide value to a visully impared user who
             // might not otherwise be able to know anything about
             // the cell which only represents a color.
+            /// DEMO-7: (Make each cell it's own element)
             cell.isAccessibilityElement = YES; // Make it's own accisisblity element
             cell.accessibilityLabel = [nameFinder closestColorNameForColor:cell.backgroundColor]; // Set the name of the color as the label
             
